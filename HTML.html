@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESPAWN ARENA - Your battlefield. Your chill zone.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #00cec9;
+            --dark: #0f0f1a;
+            --darker: #090911;
+            --light: #f5f5f5;
+            --gray: #2d2d40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(162, 155, 254, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(15, 15, 26, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--light);
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--light);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 15, 26, 0.8), rgba(15, 15, 26, 0.9));
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 0 15px var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .tagline {
+            color: var(--accent);
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--darker);
+        }
+        
+        .btn-accent:hover {
+            background-color: #00e6df;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        /* Booking Section */
+        .booking-container {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .booking-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .booking-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .booking-tab.active {
+            border-bottom: 3px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            background-color: var(--darker);
+            color: var(--light);
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .time-slot {
+            padding: 0.5rem;
+            text-align: center;
+            background-color: var(--darker);
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .time-slot:hover {
+            background-color: var(--primary);
+        }
+        
+        .time-slot.selected {
+            background-color: var(--accent);
+            color: var(--darker);
+            border-color: var(--accent);
+        }
+        
+        /* Payment Section */
+        .payment-container {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            background-color: white;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .qr-code img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .payment-details {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--darker);
+            border-radius: 8px;
+        }
+        
+        /* Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background-color: var(--dark);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .game-img {
+            height: 200px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(108, 92, 231, 0.7), rgba(15, 15, 26, 0.8));
+        }
+        
+        .game-img i {
+            font-size: 4rem;
+            color: white;
+            z-index: 1;
+        }
+        
+        .game-content {
+            padding: 1.5rem;
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--dark);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Pricing Section */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background-color: var(--dark);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--accent);
+            color: var(--darker);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 1rem 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--gray);
+            color: var(--light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--light);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: var(--dark);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+        }
+        
+        .modal h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Search Section */
+        .search-container {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .search-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px 0 0 4px;
+            background-color: var(--darker);
+            color: var(--light);
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .search-form button {
+            padding: 0 1.5rem;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                flex-direction: column;
+                padding: 1rem 0;
+                border-top: 1px solid var(--gray);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                padding: 0.5rem 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .booking-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .booking-tab {
+                flex: 1 0 50%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .booking-tab {
+                flex: 1 0 100%;
+            }
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(108, 92, 231, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Neon Effects */
+        .neon-text {
+            color: #fff;
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px var(--primary),
+                0 0 40px var(--primary),
+                0 0 80px var(--primary);
+        }
+        
+        .neon-border {
+            box-shadow:
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 15px var(--accent),
+                0 0 20px var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">RESPAWN <span>ARENA</span></div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#booking">Book Now</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#search">Find Booking</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>YOUR ULTIMATE <span class="neon-text">GAMING</span> DESTINATION</h1>
+                <span class="tagline">"Your battlefield. Your chill zone."</span>
+                <p>Experience next-level gaming with state-of-the-art equipment, immersive environments, and the latest games. Book your session now and enter a new dimension of gaming.</p>
+                <a href="#booking" class="btn pulse">Book Now</a>
+                <a href="#features" class="btn btn-accent">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking">
+        <div class="container">
+            <h2 class="section-title">Book Your Gaming Session</h2>
+            <div class="booking-container">
+                <div class="booking-tabs">
+                    <div class="booking-tab active" data-day="0">Today</div>
+                    <div class="booking-tab" data-day="1">Tomorrow</div>
+                    <div class="booking-tab" data-day="2">Overmorrow</div>
+                </div>
+                <div class="booking-form">
+                    <div class="form-group">
+                        <label for="players">Number of Players</label>
+                        <select id="players">
+                            <option value="1">1 Player</option>
+                            <option value="2">2 Players</option>
+                            <option value="3">3 Players</option>
+                            <option value="4">4 Players</option>
+                            <option value="5">5 Players</option>
+                            <option value="6">6 Players</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <select id="duration">
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                            <option value="3">3 Hours</option>
+                            <option value="4">4 Hours</option>
+                            <option value="5">5 Hours (Get 1 Hour Free!)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tv-station">TV Station</label>
+                        <select id="tv-station">
+                            <option value="ab1">AB 1</option>
+                            <option value="ab2">AB 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time Slot</label>
+                        <div class="time-slots">
+                            <div class="time-slot">11:00 AM</div>
+                            <div class="time-slot">12:00 PM</div>
+                            <div class="time-slot">1:00 PM</div>
+                            <div class="time-slot">2:00 PM</div>
+                            <div class="time-slot">3:00 PM</div>
+                            <div class="time-slot">4:00 PM</div>
+                            <div class="time-slot">5:00 PM</div>
+                            <div class="time-slot">6:00 PM</div>
+                            <div class="time-slot">7:00 PM</div>
+                            <div class="time-slot">8:00 PM</div>
+                            <div class="time-slot">9:00 PM</div>
+                            <div class="time-slot">10:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn" id="proceedToPayment">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Complete Your Payment</h2>
+            <div class="payment-container">
+                <h3>Scan QR Code to Pay via PhonePe</h3>
+                <div class="qr-code">
+                    <!-- Your QR code would go here -->
+                    <div style="text-align: center; color: black;">
+                        <i class="fas fa-qrcode" style="font-size: 8rem;"></i>
+                        <p style="margin-top: 10px; font-weight: bold;">Yuvraj Singh Tanwar</p>
+                        <p>State Bank of India</p>
+                    </div>
+                </div>
+                <div class="payment-details">
+                    <p>Account Name: <strong>Yuvraj Singh Tanwar</strong></p>
+                    <p>Amount: <strong id="paymentAmount">₹0</strong></p>
+                    <p>After payment, your booking will be confirmed automatically</p>
+                </div>
+                <div class="form-group">
+                    <label for="customer-name">Your Name</label>
+                    <input type="text" id="customer-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone">Your Phone Number</label>
+                    <input type="tel" id="customer-phone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="transaction-id">Transaction ID (Optional)</label>
+                    <input type="text" id="transaction-id" placeholder="Enter your transaction ID">
+                </div>
+                <button class="btn" id="confirmPayment">I Have Made the Payment</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search">
+        <div class="container">
+            <h2 class="section-title">Find Your Booking</h2>
+            <div class="search-container">
+                <div class="search-form">
+                    <input type="text" id="booking-code" placeholder="Enter your booking code">
+                    <button id="search-booking"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="search-results" style="margin-top: 2rem; text-align: left;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games">
+        <div class="container">
+            <h2 class="section-title">Our Games Library</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">GTA 5</h3>
+                        <p>Open-world action adventure with cheat codes available.</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-spider"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Spider-Man</h3>
+                        <p>Swing through NYC as the iconic web-slinger.</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Call of Duty</h3>
+                        <p>Intense military shooter with multiplayer modes.</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-axe-battle"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">God of War</h3>
+                        <p>Epic Norse mythology action adventure.</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Uncharted 4</h3>
+                        <p>Thrilling treasure hunting adventure.</p>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">FIFA</h3>
+                        <p>The world's premier soccer simulation.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#games" class="btn">View All Games</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Premium Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>VR/AR Gaming</h3>
+                    <p>Immerse yourself in virtual and augmented reality experiences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Tournaments</h3>
+                    <p>Compete in regular gaming tournaments with cash prizes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <h3>Food & Beverages</h3>
+                    <p>Enjoy delicious snacks and drinks while you game.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3>Live Streaming</h3>
+                    <p>Stream your gameplay to Twitch and other platforms.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Matchmaking</h3>
+                    <p>Our AI finds perfect opponents for your skill level.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Membership Rewards</h3>
+                    <p>Earn points and get discounts with our membership program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing Plans</h2>
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <h3>Casual Gamer</h3>
+                    <div class="price">₹80 <span>/hour</span></div>
+                    <ul style="list-style: none; margin: 1.5rem 0;">
+                        <li>Single Player</li>
+                        <li>2 Hour Minimum</li>
+                        <li>Standard Controller</li>
+                        <li>Access to All Games</li>
+                    </ul>
+                    <a href="#booking" class="btn">Book Now</a>
+                </div>
+                <div class="pricing-card popular">
+                    <h3>Multiplayer Pack</h3>
+                    <div class="price">₹60 <span>/hour per person</span></div>
+                    <ul style="list-style: none; margin: 1.5rem 0;">
+                        <li>2-6 Players</li>
+                        <li>3 Hour Minimum</li>
+                        <li>Premium Controllers</li>
+                        <li>Priority Game Access</li>
+                        <li>10% Off Food & Drinks</li>
+                    </ul>
+                    <a href="#booking" class="btn">Book Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>VIP Membership</h3>
+                    <div class="price">₹5000 <span>/month</span></div>
+                    <ul style="list-style: none; margin: 1.5rem 0;">
+                        <li>Unlimited Access</li>
+                        <li>Priority Booking</li>
+                        <li>Exclusive Events</li>
+                        <li>20% Off Food & Drinks</li>
+                        <li>Free VR Sessions</li>
+                    </ul>
+                    <a href="#contact" class="btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>In front of IISER Main Gate (Below Dev Family Restaurant)</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>12 PM - 12 AM, 7 days a week</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>Yuvraj Singh: 9301182762</p>
+                            <p>Harshit Sinha: 7004698609</p>
+                            <p>P. Om Shubham: 8260993624</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@respawnarena.com</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/yuvraj_singh_gujjar_2005" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitch"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3>Send us a Message</h3>
+                    <form style="display: grid; gap: 1rem;">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--gray); border-radius: 4px; background-color: var(--darker); color: var(--light); font-family: 'Roboto', sans-serif;"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <span class="footer-logo">RESPAWN ARENA</span>
+                    <p>Your ultimate gaming destination with state-of-the-art equipment and immersive experiences.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul style="list-style: none;">
+                        <li><a href="#home" style="color: var(--light); text-decoration: none;">Home</a></li>
+                        <li><a href="#booking" style="color: var(--light); text-decoration: none;">Booking</a></li>
+                        <li><a href="#games" style="color: var(--light); text-decoration: none;">Games</a></li>
+                        <li><a href="#pricing" style="color: var(--light); text-decoration: none;">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Opening Hours</h4>
+                    <p>12:00 PM - 12:00 AM</p>
+                    <p>7 Days a Week</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 RESPAWN ARENA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3>Booking Confirmed!</h3>
+            <div class="payment-details" style="margin: 1.5rem 0;">
+                <p>Thank you for your booking at RESPAWN ARENA</p>
+                <p id="bookingDetails">Your booking details will appear here</p>
+                <p>Your unique booking code: <strong id="bookingCode"></strong></p>
+                <p>Please save this code to check your booking later</p>
+                <p>A confirmation email has been sent to your email address</p>
+            </div>
+            <button class="btn" id="modalCloseBtn">Done</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+        
+        // Time Slot Selection
+        const timeSlots = document.querySelectorAll('.time-slot');
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', function() {
+                timeSlots.forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Booking Tabs
+        const bookingTabs = document.querySelectorAll('.booking-tab');
+        bookingTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                bookingTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Proceed to Payment
+        document.getElementById('proceedToPayment').addEventListener('click', function() {
+            const selectedTimeSlot = document.querySelector('.time-slot.selected');
+            const playerCount = document.getElementById('players').value;
+            const duration = document.getElementById('duration').value;
+            
+            if (!selectedTimeSlot) {
+                alert('Please select a time slot');
+                return;
+            }
+            
+            // Calculate price
+            const pricePerHour = playerCount == 1 ? 80 : 60;
+            let totalHours = parseInt(duration);
+            let totalPrice = pricePerHour * totalHours * playerCount;
+            
+            // Apply 5-hour discount
+            if (totalHours === 5) {
+                totalPrice = pricePerHour * 4 * playerCount; // Pay for 4, get 5
+            }
+            
+            // Update payment amount
+            document.getElementById('paymentAmount').textContent = `₹${totalPrice}`;
+            
+            // Show payment section
+            document.getElementById('payment').style.display = 'block';
+            
+            // Scroll to payment section
+            document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Confirm Payment
+        document.getElementById('confirmPayment').addEventListener('click', function() {
+            const customerName = document.getElementById('customer-name').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            
+            if (!customerName || !customerPhone) {
+                alert('Please enter your name and phone number');
+                return;
+            }
+            
+            const selectedTimeSlot = document.querySelector('.time-slot.selected');
+            const playerCount = document.getElementById('players').value;
+            const duration = document.getElementById('duration').value;
+            const tvStation = document.getElementById('tv-station').value;
+            const selectedTab = document.querySelector('.booking-tab.active');
+            const dayOffset = selectedTab.getAttribute('data-day');
+            
+            // Calculate price
+            const pricePerHour = playerCount == 1 ? 80 : 60;
+            let totalHours = parseInt(duration);
+            let totalPrice = pricePerHour * totalHours * playerCount;
+            
+            // Apply 5-hour discount
+            if (totalHours === 5) {
+                totalHours = 6; // 5+1 free
+                totalPrice = pricePerHour * 4 * playerCount;
+            }
+            
+            // Get date
+            const date = new Date();
+            date.setDate(date.getDate() + parseInt(dayOffset));
+            const dateString = date.toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Generate unique booking code
+            const bookingCode = 'RA' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Save booking to localStorage
+            const booking = {
+                code: bookingCode,
+                date: dateString,
+                time: selectedTimeSlot.textContent,
+                duration: totalHours,
+                players: playerCount,
+                tvStation: tvStation,
+                customerName: customerName,
+                customerPhone: customerPhone,
+                totalPrice: totalPrice
+            };
+            
+           // Send data to Google Sheet via Apps Script
+fetch("YOUR_WEB_APP_URL", {
+  method: "POST",
+  body: JSON.stringify({
+    name: customerName,
+    phone: customerPhone,
+    date: dateString,
+    time: selectedTimeSlot.textContent,
+    duration: totalHours,
+    players: playerCount,
+    tvStation: tvStation,
+    price: totalPrice
+  }),
+  headers: { "Content-Type": "application/json" }
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    document.getElementById('bookingCode').textContent = data.code;
+    document.getElementById('confirmationModal').style.display = 'flex';
+  }
+})
+.catch(err => {
+  alert("Error saving booking, please try again.");
+  console.error(err);
+});
+            // Set booking details
+            document.getElementById('bookingDetails').innerHTML = `
+                <strong>Name:</strong> ${customerName}<br>
+                <strong>Phone:</strong> ${customerPhone}<br>
+                <strong>Date:</strong> ${dateString}<br>
+                <strong>Time:</strong> ${selectedTimeSlot.textContent}<br>
+                <strong>Duration:</strong> ${totalHours} hours<br>
+                <strong>Players:</strong> ${playerCount}<br>
+                <strong>TV Station:</strong> ${tvStation.toUpperCase()}<br>
+                <strong>Total Amount:</strong> ₹${totalPrice}
+            `;
+            
+            document.getElementById('bookingCode').textContent = bookingCode;
+            
+            // Show confirmation modal
+            document.getElementById('confirmationModal').style.display = 'flex';
+        });
+        
+        // Search Booking
+        document.getElementById('search-booking').addEventListener('click', function() {
+            const code = document.getElementById('booking-code').value;
+            if (!code) {
+                alert('Please enter a booking code');
+                return;
+            }
+            
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const booking = bookings.find(b => b.code === code);
+            
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (booking) {
+                resultsDiv.innerHTML = `
+                    <div style="background: var(--darker); padding: 1.5rem; border-radius: 8px;">
+                        <h3>Booking Found</h3>
+                        <p><strong>Code:</strong> ${booking.code}</p>
+                        <p><strong>Name:</strong> ${booking.customerName}</p>
+                        <p><strong>Phone:</strong> ${booking.customerPhone}</p>
+                        <p><strong>Date:</strong> ${booking.date}</p>
+                        <p><strong>Time:</strong> ${booking.time}</p>
+                        <p><strong>Duration:</strong> ${booking.duration} hours</p>
+                        <p><strong>Players:</strong> ${booking.players}</p>
+                        <p><strong>TV Station:</strong> ${booking.tvStation.toUpperCase()}</p>
+                        <p><strong>Total Amount:</strong> ₹${booking.totalPrice}</p>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = `
+                    <div style="background: var(--darker); padding: 1.5rem; border-radius: 8px; text-align: center;">
+                        <h3>No Booking Found</h3>
+                        <p>No booking found with code: ${code}</p>
+                    </div>
+                `;
+            }
+        });
+        
+        // Close Modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        });
+        
+        document.getElementById('modalCloseBtn').addEventListener('click', function() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
